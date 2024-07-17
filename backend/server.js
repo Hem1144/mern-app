@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
@@ -12,6 +13,12 @@ const app = express();
 app.use(bodyParser.json());
 
 connectDB();
+
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+  })
+);
 
 app.use("/auth", authRoutes);
 app.use("/tasks", taskRoutes);
