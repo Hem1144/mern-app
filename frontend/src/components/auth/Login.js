@@ -24,7 +24,7 @@ const Login = () => {
       const response = await api.login(email, password);
       if (response.token) {
         api.setAuthHeader(response.token);
-        navigate("/tasks/new");
+        navigate("/");
       } else {
         console.log("Login failed");
       }

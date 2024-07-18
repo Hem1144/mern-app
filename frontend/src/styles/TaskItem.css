@@ -1,0 +1,49 @@
+/* src/styles/TaskItem.css */
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+}
+
+.task-details {
+  flex: 1;
+}
+
+.task-title {
+  margin: 0;
+  font-size: 1.2em;
+}
+
+.task-description {
+  margin: 5px 0;
+  color: #555;
+}
+
+.task-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-button,
+.delete-button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-button {
+  background-color: #4caf50;
+  color: white;
+}
+
+.delete-button {
+  background-color: #f44336;
+  color: white;
+}

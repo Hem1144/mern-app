@@ -1,55 +1,65 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addTask } from "../../redux/slices/taskSlice";
-import { useNavigate, useParams } from "react-router-dom";
-
+import { useParams, useNavigate } from "react-router-dom";
+import { addTask, updateTask, fetchTasks } from "../../redux/slices/taskSlice";
 const TaskForm = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { id } = useParams();
-  const { tasks } = useSelector((state) => state.task);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [formData, setFormData] = useState({ title: "", description: "" });
+  const tasks = useSelector((state) => state.tasks.tasks);
 
   useEffect(() => {
     if (id) {
-      const task = tasks.find((task) => task._id === id);
+      const task = tasks.find((task) => task.id === parseInt(id));
       if (task) {
-        setTitle(task.title);
-        setDescription(task.description);
+        setFormData({ title: task.title, description: task.description });
       }
     }
   }, [id, tasks]);
 
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (id) {
+      await dispatch(updateTask({ taskId: id, taskData: formData }));
     } else {
-      const resultAction = await dispatch(addTask({ title, description }));
-      if (addTask.fulfilled.match(resultAction)) {
-        navigate("/");
-      }
+      await dispatch(addTask(formData));
     }
+    dispatch(fetchTasks());
+    navigate("/");
   };
 
   return (
-    <div>
-      <h2>{id ? "Edit Task" : "Add Task"}</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        />
-        <textarea
-          placeholder="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          required
-        />
-        <button type="submit">{id ? "Update Task" : "Add Task"}</button>
+    <div className="task-form-container">
+      <form onSubmit={handleSubmit} className="task-form">
+        <div className="form-group">
+          <label htmlFor="title">Title</label>
+          <input
+            type="text"
+            name="title"
+            placeholder="Title"
+            value={formData.title}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="description">Description</label>
+          <textarea
+            name="description"
+            placeholder="Description"
+            value={formData.description}
+            onChange={handleChange}
+            required
+          ></textarea>
+        </div>
+        <button type="submit" className="submit-button">
+          {id ? "Update Task" : "Add Task"}
+        </button>
       </form>
     </div>
   );
