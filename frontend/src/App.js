@@ -5,11 +5,13 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import TaskList from "./components/task/TaskList";
 import TaskForm from "./components/task/TaskForm";
+import Navbar from "./components/Navbar";
 import "./styles/App.css";
 
 const App = () => {
   return (
     <Router>
+      <Navbar />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
