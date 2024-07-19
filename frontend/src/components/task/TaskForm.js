@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { addTask, updateTask, fetchTasks } from "../../redux/slices/taskSlice";
+import "../../styles/TaskForm.css";
+
 const TaskForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();

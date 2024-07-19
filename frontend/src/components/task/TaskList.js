@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchTasks, addTask } from "../../redux/slices/taskSlice";
+import { fetchTasks } from "../../redux/slices/taskSlice";
 import { useNavigate } from "react-router-dom";
 import TaskItem from "./TaskItems";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../../styles/TaskList.css";
 
 const TaskList = () => {
@@ -21,20 +23,16 @@ const TaskList = () => {
     setSearchTerm(e.target.value);
   };
 
-  const handleAddTask = async () => {
-    navigate("tasks/new");
-
-    try {
-      await dispatch(addTask());
-      dispatch(fetchTasks());
-    } catch (error) {
-      console.error("Error adding task:", error);
-    }
+  const handleAddTask = () => {
+    navigate("/tasks/new");
   };
 
   const filteredTasks = Array.isArray(tasks)
-    ? tasks.filter((task) =>
-        task.title.toLowerCase().includes(searchTerm.toLowerCase())
+    ? tasks.filter(
+        (task) =>
+          task &&
+          task.title &&
+          task.title.toLowerCase().includes(searchTerm.toLowerCase())
       )
     : [];
 
@@ -49,6 +47,7 @@ const TaskList = () => {
 
   return (
     <div className="task-list-container">
+      <ToastContainer />
       <div className="task-list-controls">
         <input
           type="text"

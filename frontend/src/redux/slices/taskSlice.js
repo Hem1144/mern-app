@@ -6,11 +6,24 @@ export const fetchTasks = createAsyncThunk("tasks/fetchTasks", async () => {
   return response.tasks;
 });
 
+export const addTask = createAsyncThunk("tasks/addTask", async (newTask) => {
+  const response = await apiService.addTask(newTask);
+  return response.data;
+});
+
 export const deleteTaskAsync = createAsyncThunk(
   "tasks/deleteTask",
   async (taskId) => {
     await apiService.deleteTask(taskId);
     return taskId;
+  }
+);
+
+export const updateTask = createAsyncThunk(
+  "tasks/updateTask",
+  async ({ taskId, taskData }) => {
+    const response = await apiService.updateTask(taskId, taskData);
+    return response.data;
   }
 );
 
@@ -21,19 +34,7 @@ const taskSlice = createSlice({
     loading: false,
     error: null,
   },
-  reducers: {
-    addTask(state, action) {
-      state.tasks.push(action.payload);
-    },
-    updateTask(state, action) {
-      const index = state.tasks.findIndex(
-        (task) => task.id === action.payload.id
-      );
-      if (index !== -1) {
-        state.tasks[index] = action.payload;
-      }
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchTasks.pending, (state) => {
@@ -47,12 +48,18 @@ const taskSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
       })
-      .addCase(deleteTaskAsync.fulfilled, (state, action) => {
-        state.tasks = state.tasks.filter((task) => task.id !== action.payload);
+      .addCase(addTask.fulfilled, (state, action) => {
+        state.tasks.push(action.payload);
+      })
+      .addCase(updateTask.fulfilled, (state, action) => {
+        const index = state.tasks.findIndex(
+          (task) => task.id === action.payload.id
+        );
+        if (index !== -1) {
+          state.tasks[index] = action.payload;
+        }
       });
   },
 });
-
-export const { addTask, updateTask } = taskSlice.actions;
 
 export default taskSlice.reducer;
