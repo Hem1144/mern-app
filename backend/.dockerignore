@@ -1,0 +1,25 @@
+# .backend/.dockerignore
+
+# Node modules
+node_modules
+
+# Logs
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Git files
+.git
+.gitignore
+
+# IDE/editor files
+.vscode
+.idea
+*.swp
+*.swo
+
+# Docker files
+Dockerfile
+.dockerignore
