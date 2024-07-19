@@ -5,8 +5,10 @@ import { logout } from "../redux/slices/authSlice";
 import apiService from "../services/apiService";
 import { FaBars, FaTimes } from "react-icons/fa";
 import "../styles/Navbar.css";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isAuthenticated } = useSelector((state) => state.auth);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -15,6 +17,7 @@ const Navbar = () => {
     dispatch(logout());
     apiService.setAuthHeader(null);
     setIsMobileMenuOpen(false);
+    navigate("/login");
   };
 
   const toggleMobileMenu = () => {
