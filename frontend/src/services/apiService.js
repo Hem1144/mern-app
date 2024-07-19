@@ -24,6 +24,9 @@ const apiService = {
       email,
       password,
     });
+    if (response.data.token) {
+      this.setAuthHeader(response.data.token);
+    }
     return response.data;
   },
   async register(username, email, password) {

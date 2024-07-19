@@ -41,22 +41,14 @@ const Navbar = () => {
             </Link>
           </li>
           {isAuthenticated ? (
-            <>
-              <li className="nav-item">
-                <Link
-                  to="/tasks/new"
-                  className="nav-links"
-                  onClick={closeMobileMenu}
-                >
-                  Add Task
-                </Link>
-              </li>
-              <li className="nav-item">
-                <button className="nav-links-mobile" onClick={handleLogout}>
-                  Logout
-                </button>
-              </li>
-            </>
+            <li className="nav-item">
+              <button
+                className="nav-links nav-links-button"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            </li>
           ) : (
             <>
               <li className="nav-item">

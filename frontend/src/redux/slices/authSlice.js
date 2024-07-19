@@ -6,7 +6,7 @@ export const login = createAsyncThunk(
   async ({ email, password }, { rejectWithValue }) => {
     try {
       const response = await apiService.login(email, password);
-      if (response.success) {
+      if (response.token) {
         apiService.setAuthHeader(response.token);
         return { user: response.user, token: response.token };
       } else {
@@ -23,7 +23,7 @@ export const register = createAsyncThunk(
   async ({ username, email, password }, { rejectWithValue }) => {
     try {
       const response = await apiService.register(username, email, password);
-      if (response.success) {
+      if (response.token) {
         apiService.setAuthHeader(response.token);
         return { user: response.user, token: response.token };
       } else {
@@ -41,7 +41,7 @@ const authSlice = createSlice({
     user: null,
     isAuthenticated: false,
     error: null,
-    token: null,
+    token: localStorage.getItem("token") || null,
   },
   reducers: {
     logout(state) {

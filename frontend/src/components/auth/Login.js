@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import api from "../../services/apiService";
 import { useNavigate } from "react-router-dom";
 import "../../styles/Login.css";
+import { login } from "../../redux/slices/authSlice";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -19,18 +20,13 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const { email, password } = formData;
-    try {
-      const response = await api.login(email, password);
-      if (response.token) {
-        api.setAuthHeader(response.token);
+    dispatch(login(formData)).then((result) => {
+      if (result.meta.requestStatus === "fulfilled") {
         navigate("/");
       } else {
         console.log("Login failed");
       }
-    } catch (error) {
-      console.error("Login error:", error.message);
-    }
+    });
   };
 
   return (
