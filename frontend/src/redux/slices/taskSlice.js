@@ -52,12 +52,16 @@ const taskSlice = createSlice({
         state.tasks.push(action.payload);
       })
       .addCase(updateTask.fulfilled, (state, action) => {
-        const index = state.tasks.findIndex(
-          (task) => task.id === action.payload.id
-        );
+        const index = state.tasks.findIndex((task) => {
+          return task.id === task._id;
+        });
+
         if (index !== -1) {
           state.tasks[index] = action.payload;
         }
+      })
+      .addCase(deleteTaskAsync.fulfilled, (state, action) => {
+        state.tasks = state.tasks.filter((task) => task._id !== action.payload);
       });
   },
 });

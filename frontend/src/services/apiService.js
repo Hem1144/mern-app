@@ -20,7 +20,6 @@ const apiService = {
     return {};
   },
   async login(email, password) {
-    console.log({ email, password });
     const response = await axios.post(`${BASE_URL}/auth/login`, {
       email,
       password,

@@ -13,7 +13,9 @@ const TaskForm = () => {
 
   useEffect(() => {
     if (id) {
-      const task = tasks.find((task) => task.id === parseInt(id));
+      const task = tasks.find((task) => {
+        return task._id === id;
+      });
       if (task) {
         setFormData({ title: task.title, description: task.description });
       }

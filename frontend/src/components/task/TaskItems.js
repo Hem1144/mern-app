@@ -11,7 +11,7 @@ const TaskItem = ({ task }) => {
   const navigate = useNavigate();
 
   const handleEdit = () => {
-    navigate(`/edit-task/${task._id}`);
+    navigate(`/tasks/${task._id}`);
   };
 
   const handleDelete = async () => {

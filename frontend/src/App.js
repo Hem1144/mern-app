@@ -18,7 +18,7 @@ const App = () => {
         {/* <Route element={<PrivateRoute />}> */}
         <Route path="/" element={<TaskList />} />
         <Route path="/tasks/new" element={<TaskForm />} />
-        <Route path="/tasks/:id/edit" element={<TaskForm />} />
+        <Route path="/tasks/:id" element={<TaskForm />} />
         {/* </Route> */}
       </Routes>
     </Router>
