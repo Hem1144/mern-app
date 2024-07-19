@@ -39,10 +39,23 @@ button {
   cursor: pointer;
 }
 
-@media (max-width: 600px) {
-  input,
-  textarea,
-  button {
-    width: 100%;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  padding: 20px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 5px;
   }
 }
